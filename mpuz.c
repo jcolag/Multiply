@@ -1,4 +1,6 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
@@ -73,13 +75,13 @@ int main (int argc, char *argv[])
       found,
       i,
       j,
-      d,
+      d = -1,
       pad,
       length;
  char letter[10],
       string[10],
       temp,
-      c,
+      c = 'Z',
       ch;
 
  pad = 0;
