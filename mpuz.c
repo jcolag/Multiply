@@ -4,25 +4,41 @@
 #include <string.h>
 #include <time.h>
 
+/*
+ * Generate a random number of a guaranteed specific length
+ */
 int number (int length) {
     int multiplier = 1,
         lead,
         rest,
         i;
 
+    /* It's nonsensical to only request one digit or less */
     if (length < 2) {
         return (0);
     }
 
+    /* Get the scale of the number, minus the first place */
     for (i = 1; i < length; i++) {
         multiplier *= 10;
     }
 
+    /* Get the first digit separately to ensure the lead digit
+     * is non-zero.  Since 0nm = nm, it's not a three-digit
+     * number.
+     */
     lead = rand() % 9 + 1;
     rest = rand() % multiplier;
+    /* Put the parts together. */
     return (lead * multiplier + rest);
 }
 
+/*
+ * Copies num into out as a formatted string, replacing
+ * any still-unknown digits with the selected random
+ * letters.
+ * Returns the length of out, always 5.
+ */
 int subst (int num, char* out, char* letter) {
     int  i;
 
@@ -36,6 +52,9 @@ int subst (int num, char* out, char* letter) {
     return (strlen(out));
 }
 
+/* 
+ * Prints a formatted line of the multiplication.
+ */
 int output (char* string, int length, int pad) {
     int  i,
          j,
@@ -59,6 +78,9 @@ int output (char* string, int length, int pad) {
     return (cont);
 }
 
+/*
+ * Main program, with command-line arguments.
+ */
 int main (int argc, char* argv[]) {
     int  multiplicand1,
          multiplicand2,
@@ -77,6 +99,7 @@ int main (int argc, char* argv[]) {
          c = 'Z',
          ch;
 
+    /* Initialization */
     pad = 0;
     if (argc > 1) {
         pad = atoi(argv[1]);
@@ -93,6 +116,7 @@ int main (int argc, char* argv[]) {
         letter[i] = 'A' + i;
     }
 
+    /* Shuffle the letter replacements */
     for (i = 0; i < 10; i++) {
         j = rand() % 10;
         temp = letter[j];
@@ -103,6 +127,7 @@ int main (int argc, char* argv[]) {
     guess = 0;
     wrong = 0;
     while (1) {
+        /* Print the current game state */
         found = 0;
         length = subst(multiplicand1, string, letter);
         found |= output(string, length, pad);
@@ -120,6 +145,7 @@ int main (int argc, char* argv[]) {
         printf ("(%d guesses - %d wrong)\n", guess, wrong);
         printf("\n > ");
         ch = '\000';
+        /* Get and validate input */
         while (ch != 0x0A) {
             ch = fgetc (stdin);
             if (isdigit (ch)) {
