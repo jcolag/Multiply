@@ -84,6 +84,8 @@ int output (char* string, int length, int pad) {
 int main (int argc, char* argv[]) {
     int  multiplicand1,
          multiplicand2,
+         intermediate1,
+         intermediate2,
          product,
          guess,
          wrong,
@@ -110,6 +112,8 @@ int main (int argc, char* argv[]) {
         multiplicand1 = number(3);
         multiplicand2 = number(2);
         product = multiplicand1 * multiplicand2;
+        intermediate1 = multiplicand1 * (multiplicand2 % 10);
+        intermediate2 = multiplicand1 * (multiplicand2 / 10);
     } while ((product < 10000) && (multiplicand2 % 10 > 1));
 
     for (i = 0; i < 10; i++) {
@@ -133,6 +137,13 @@ int main (int argc, char* argv[]) {
         found |= output(string, length, pad);
         length = subst(multiplicand2, string, letter);
         string[0] = 'x';
+        found |= output(string, length, pad);
+        output("-----", 5, pad);
+        length = subst(intermediate1, string, letter);
+        found |= output(string, length, pad);
+        length = subst(intermediate2, string, letter) + 1;
+        strcpy(string, string + 1);
+        string[5] = ' ';
         found |= output(string, length, pad);
         output("-----", 5, pad);
         length = subst(product, string, letter);
