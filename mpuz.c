@@ -55,19 +55,11 @@ int subst (int num, char* out, char* letter) {
 /* 
  * Prints a formatted line of the multiplication.
  */
-int output (char* string, int length, int pad) {
+int output (char* string, int length) {
     int  i,
-         j,
          cont = 0;
 
-    for (j = 0; j < pad; j++) {
-        printf("\n");
-    }
-
     for (i = 0; i < length; i++) {
-        for (j = 0; j < pad; j++) {
-            printf(" ");
-        }
         printf("%c", string[i]);
         if (isalpha(string[i]) && string[i] != 'x') {
             cont = 1;
@@ -93,7 +85,6 @@ int main (int argc, char* argv[]) {
          i,
          j,
          d = -1,
-         pad,
          length;
     char letter[10],
          string[10],
@@ -102,11 +93,6 @@ int main (int argc, char* argv[]) {
          ch;
 
     /* Initialization */
-    pad = 0;
-    if (argc > 1) {
-        pad = atoi(argv[1]);
-    }
-
     srand(time(NULL));
     do	{
         multiplicand1 = number(3);
@@ -134,20 +120,20 @@ int main (int argc, char* argv[]) {
         /* Print the current game state */
         found = 0;
         length = subst(multiplicand1, string, letter);
-        found |= output(string, length, pad);
+        found |= output(string, length);
         length = subst(multiplicand2, string, letter);
         string[0] = 'x';
-        found |= output(string, length, pad);
-        output("-----", 5, pad);
+        found |= output(string, length);
+        output("-----", 5);
         length = subst(intermediate1, string, letter);
-        found |= output(string, length, pad);
+        found |= output(string, length);
         length = subst(intermediate2, string, letter) + 1;
         strcpy(string, string + 1);
         string[5] = ' ';
-        found |= output(string, length, pad);
-        output("-----", 5, pad);
+        found |= output(string, length);
+        output("-----", 5);
         length = subst(product, string, letter);
-        found |= output(string, length, pad);
+        found |= output(string, length);
         if (!found) {
             printf ("You won with %d wrong guesses of %d total.\n", wrong, guess);
             return (-wrong);
