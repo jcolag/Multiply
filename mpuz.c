@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -85,12 +86,17 @@ int main (int argc, char* argv[]) {
          i,
          j,
          d = -1,
-         length;
+         length,
+         option_index,
+         still_args = 1;
     char letter[10],
          string[10],
          temp,
          c = 'Z',
          ch;
+	static struct option long_options[] = {
+	    { "help", no_argument, 0, 'h' },
+	};
 
     /* Initialization */
     srand(time(NULL));
@@ -101,6 +107,20 @@ int main (int argc, char* argv[]) {
         intermediate1 = multiplicand1 * (multiplicand2 % 10);
         intermediate2 = multiplicand1 * (multiplicand2 / 10);
     } while ((product <= 10000) && (multiplicand2 % 10 > 1));
+    
+    while (still_args) {
+    	c = getopt_long(argc, argv, "hs", long_options, &option_index);
+    	switch (c) {
+    	case -1:
+    		still_args = 0;
+    		break;
+    	case 'h':
+    		printf("Usage:\n\t%s [-hs]\n", argv[0]);
+    		printf("\n\t\t-h\tShow this help\n\t\t-s\tShow intermediate products\n\n");
+    		exit(0);
+    		break;
+    	}
+    }
 
     for (i = 0; i < 10; i++) {
         letter[i] = 'A' + i;
