@@ -87,6 +87,7 @@ int main (int argc, char* argv[]) {
          j,
          d = -1,
          length,
+         show_intermediate = 0,
          option_index,
          still_args = 1;
     char letter[10],
@@ -96,6 +97,8 @@ int main (int argc, char* argv[]) {
          ch;
 	static struct option long_options[] = {
 	    { "help", no_argument, 0, 'h' },
+		{ "show-intermediate", no_argument, 0, 's' },
+		{ 0, 0, 0, 0 }
 	};
 
     /* Initialization */
@@ -118,6 +121,9 @@ int main (int argc, char* argv[]) {
     		printf("Usage:\n\t%s [-hs]\n", argv[0]);
     		printf("\n\t\t-h\tShow this help\n\t\t-s\tShow intermediate products\n\n");
     		exit(0);
+    		break;
+    	case 's':
+    		show_intermediate = 1;
     		break;
     	}
     }
@@ -145,13 +151,15 @@ int main (int argc, char* argv[]) {
         string[0] = 'x';
         found |= output(string, length);
         output("-----", 5);
-        length = subst(intermediate1, string, letter);
-        found |= output(string, length);
-        length = subst(intermediate2, string, letter) + 1;
-        strcpy(string, string + 1);
-        string[5] = ' ';
-        found |= output(string, length);
-        output("-----", 5);
+        if (show_intermediate) {
+	        length = subst(intermediate1, string, letter);
+	        found |= output(string, length);
+	        length = subst(intermediate2, string, letter) + 1;
+	        strcpy(string, string + 1);
+	        string[5] = ' ';
+	        found |= output(string, length);
+	        output("-----", 5);
+        }
         length = subst(product, string, letter);
         found |= output(string, length);
         if (!found) {
