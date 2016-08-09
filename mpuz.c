@@ -56,11 +56,19 @@ int subst (int num, char* out, char* letter) {
 /* 
  * Prints a formatted line of the multiplication.
  */
-int output (char* string, int length) {
+int output (char* string, int length, int pad) {
     int  i,
+    	 j,
          cont = 0;
 
+	for (j = 0; j < pad; j++) {
+		printf("\n");
+	}
+	
     for (i = 0; i < length; i++) {
+		for (j = 0; j < pad; j++) {
+			printf(" ");
+		}
         printf("%c", string[i]);
         if (isalpha(string[i]) && string[i] != 'x') {
             cont = 1;
@@ -86,6 +94,7 @@ int main (int argc, char* argv[]) {
          i,
          j,
          d = -1,
+         pad = 0,
          length,
          show_intermediate = 0,
          option_index,
@@ -97,6 +106,7 @@ int main (int argc, char* argv[]) {
          ch;
 	static struct option long_options[] = {
 	    { "help", no_argument, 0, 'h' },
+		{ "use-padding", required_argument, 0, 'p' },
 		{ "show-intermediate", no_argument, 0, 's' },
 		{ 0, 0, 0, 0 }
 	};
@@ -112,15 +122,24 @@ int main (int argc, char* argv[]) {
     } while ((product <= 10000) && (multiplicand2 % 10 > 1));
     
     while (still_args) {
-    	c = getopt_long(argc, argv, "hs", long_options, &option_index);
+    	c = getopt_long(argc, argv, "hp:s", long_options, &option_index);
     	switch (c) {
     	case -1:
     		still_args = 0;
     		break;
     	case 'h':
-    		printf("Usage:\n\t%s [-hs]\n", argv[0]);
-    		printf("\n\t\t-h\tShow this help\n\t\t-s\tShow intermediate products\n\n");
+    		printf("Usage:\n\t%s [-hs] [-p X]\n", argv[0]);
+    		printf("\n\t\t-h\tShow this help\n");
+    		printf("\t\t-p <X>\tPad output by X spaces\n");
+    		printf("\t\t-s\tShow intermediate products\n\n");
     		exit(0);
+    		break;
+    	case 'p':
+    		if (!optarg) {
+    			exit(-1);
+    		}
+    		
+    		pad = atoi(optarg);
     		break;
     	case 's':
     		show_intermediate = 1;
@@ -146,22 +165,22 @@ int main (int argc, char* argv[]) {
         /* Print the current game state */
         found = 0;
         length = subst(multiplicand1, string, letter);
-        found |= output(string, length);
+        found |= output(string, length, pad);
         length = subst(multiplicand2, string, letter);
         string[0] = 'x';
-        found |= output(string, length);
-        output("-----", 5);
+        found |= output(string, length, pad);
+        output("-----", 5, pad);
         if (show_intermediate) {
 	        length = subst(intermediate1, string, letter);
-	        found |= output(string, length);
+	        found |= output(string, length, pad);
 	        length = subst(intermediate2, string, letter) + 1;
 	        strcpy(string, string + 1);
 	        string[5] = ' ';
-	        found |= output(string, length);
-	        output("-----", 5);
+	        found |= output(string, length, pad);
+	        output("-----", 5, pad);
         }
         length = subst(product, string, letter);
-        found |= output(string, length);
+        found |= output(string, length, pad);
         if (!found) {
             printf ("You won with %d wrong guesses of %d total.\n", wrong, guess);
             return (-wrong);
