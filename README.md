@@ -15,3 +15,14 @@ _Multiply_ is a simple puzzle game, where the user can guess and deduce which le
 
 While I'm certain this idea isn't at all original to me in any respect, I don't recall where I first saw it, and have written and lost several versions, over the years.
 
+## Usage
+
+_Multiply_ makes use of several command-line arguments.
+
+| Short Form | Long Form | Description |
+| :--------- | :-------- | :---------- |
+| `-h`     | `--help` | Show program usage |
+| `-p` _X_ | `--use-padding=`_X_ | Pad out each character with _X_ spaces |
+| `-s`     | `--show-intermediate` | Shows intermediate products, providing more information |
+
+
