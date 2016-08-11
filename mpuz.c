@@ -197,6 +197,10 @@ int main (int argc, char* argv[]) {
             }
             if (isalpha (ch)) {
                 c = toupper (ch);
+                if (c == 'Q') {
+                	printf ("Exiting...");
+                	exit (0);
+                }
             }
         }
 
