@@ -198,8 +198,18 @@ int main (int argc, char* argv[]) {
             if (isalpha (ch)) {
                 c = toupper (ch);
                 if (c == 'Q') {
-                	printf ("Exiting...");
+                	printf ("Exiting...\n");
                 	exit (0);
+                } else if (c == 'P') {
+                	printf ("Numbers solved:  ");
+                	for (i = 0; i < 10; i++) {
+                		if (isdigit (letter[i])) {
+                			printf ("%c ", letter[i]);
+                		}
+                	}
+                	
+                	printf ("\n");
+                	continue;
                 }
             }
         }
