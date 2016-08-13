@@ -112,15 +112,6 @@ int main (int argc, char* argv[]) {
 	};
 
     /* Initialization */
-    srand(time(NULL));
-    do	{
-        multiplicand1 = number(3);
-        multiplicand2 = number(2);
-        product = multiplicand1 * multiplicand2;
-        intermediate1 = multiplicand1 * (multiplicand2 % 10);
-        intermediate2 = multiplicand1 * (multiplicand2 / 10);
-    } while ((product <= 10000) && (multiplicand2 % 10 > 1));
-    
     while (still_args) {
     	c = getopt_long(argc, argv, "hp:s", long_options, &option_index);
     	switch (c) {
@@ -147,6 +138,15 @@ int main (int argc, char* argv[]) {
     	}
     }
 
+    srand(time(NULL));
+    do	{
+        multiplicand1 = number(3);
+        multiplicand2 = number(2);
+        product = multiplicand1 * multiplicand2;
+        intermediate1 = multiplicand1 * (multiplicand2 % 10);
+        intermediate2 = multiplicand1 * (multiplicand2 / 10);
+    } while ((product <= 10000) && (multiplicand2 % 10 > 1));
+    
     for (i = 0; i < 10; i++) {
         letter[i] = 'A' + i;
     }
