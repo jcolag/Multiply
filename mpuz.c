@@ -145,7 +145,8 @@ int main (int argc, char* argv[]) {
         product = multiplicand1 * multiplicand2;
         intermediate1 = multiplicand1 * (multiplicand2 % 10);
         intermediate2 = multiplicand1 * (multiplicand2 / 10);
-    } while ((product <= 10000) && (multiplicand2 % 10 > 1));
+    } while ((product <= 10000) && (multiplicand2 % 10 > 1)
+    	&& (intermediate1 <= 1000) && (intermediate2 <= 1000));
     
     for (i = 0; i < 10; i++) {
         letter[i] = 'A' + i;
@@ -210,6 +211,9 @@ int main (int argc, char* argv[]) {
                 	
                 	printf ("\n");
                 	continue;
+                } else if (c == 'N') {
+                	main (argc, argv);
+                	exit (0);
                 }
             }
         }
