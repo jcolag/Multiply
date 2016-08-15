@@ -201,7 +201,7 @@ int main (int argc, char* argv[]) {
                 if (c == 'Q') {
                 	printf ("Exiting...\n");
                 	exit (0);
-                } else if (c == 'P') {
+                } else if (c == 'N') {
                 	printf ("Numbers solved:  ");
                 	for (i = 0; i < 10; i++) {
                 		if (isdigit (letter[i])) {
@@ -211,7 +211,7 @@ int main (int argc, char* argv[]) {
                 	
                 	printf ("\n");
                 	continue;
-                } else if (c == 'N') {
+                } else if (c == 'R') {
                 	main (argc, argv);
                 	exit (0);
                 }
