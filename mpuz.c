@@ -201,6 +201,8 @@ int main (int argc, char* argv[]) {
                 if (c == 'Q') {
                 	printf ("Exiting...\n");
                 	exit (0);
+                } else if (c == 'S') {
+                	show_intermediate = 1 - show_intermediate;
                 } else if (c == 'N') {
                 	printf ("Numbers solved:  ");
                 	for (i = 0; i < 10; i++) {
