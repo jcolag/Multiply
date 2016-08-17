@@ -201,6 +201,12 @@ int main (int argc, char* argv[]) {
                 if (c == 'Q') {
                 	printf ("Exiting...\n");
                 	exit (0);
+                } else if (c == 'L') {
+                	printf ("\n\t> L\t(Print this help)\n");
+                	printf ("\t> N\t(Print solved numbers)\n");
+                	printf ("\t> Q\t(Quit the game)\n");
+                	printf ("\t> R\t(Restart the game with a new puzzle)\n");
+                	printf ("\t> S\t(Toggle intermediate results)\n\n");
                 } else if (c == 'S') {
                 	show_intermediate = 1 - show_intermediate;
                 } else if (c == 'N') {
