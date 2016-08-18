@@ -25,4 +25,14 @@ _Multiply_ makes use of several command-line arguments.
 | `-p` _X_ | `--use-padding=`_X_ | Pad out each character with _X_ spaces |
 | `-s`     | `--show-intermediate` | Shows intermediate products, providing more information |
 
+There are also certain commands within the game.
+
+| Command | Description |
+|:-------:|:----------- |
+| L	| Print this help                    |
+| N	| Print solved numbers               |
+| Q	| Quit the game                      |
+| R	| Restart the game with a new puzzle |
+| S	| Toggle intermediate results        |
+
 
