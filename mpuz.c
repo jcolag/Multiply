@@ -98,7 +98,8 @@ int main (int argc, char* argv[]) {
          length,
          show_intermediate = 0,
          option_index,
-         still_args = 1;
+         still_args = 1,
+         command;
     char letter[10],
          string[10],
          temp,
@@ -165,6 +166,7 @@ int main (int argc, char* argv[]) {
     while (1) {
         /* Print the current game state */
         found = 0;
+        command = 0;
         length = subst(multiplicand1, string, letter);
         found |= output(string, length, pad);
         length = subst(multiplicand2, string, letter);
@@ -207,8 +209,10 @@ int main (int argc, char* argv[]) {
                 	printf ("\t> Q\t(Quit the game)\n");
                 	printf ("\t> R\t(Restart the game with a new puzzle)\n");
                 	printf ("\t> S\t(Toggle intermediate results)\n\n");
+                	command = 1;
                 } else if (c == 'S') {
                 	show_intermediate = 1 - show_intermediate;
+                	command = 1;
                 } else if (c == 'N') {
                 	printf ("Numbers solved:  ");
                 	for (i = 0; i < 10; i++) {
@@ -218,12 +222,16 @@ int main (int argc, char* argv[]) {
                 	}
                 	
                 	printf ("\n");
-                	continue;
+                	command = 1;
                 } else if (c == 'R') {
                 	main (argc, argv);
                 	exit (0);
                 }
             }
+        }
+        
+        if (command) {
+        	continue;
         }
 
         found = 0;
